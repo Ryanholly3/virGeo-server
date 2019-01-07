@@ -7,19 +7,19 @@ exports.seed = function(knex, Promise) {
           id: 1,
           user_name: "ryanholly",
           full_name: "Ryan Holly",
-          level: 2,
+          level: 10,
         },
         {
           id: 2,
           user_name: "loganpeters",
           full_name: "Logan Peters",
-          level: 5,
+          level: 6,
         },
         {
           id: 3,
           user_name: "steph",
           full_name: "Stephan Holly",
-          level: 6,
+          level: 3,
         },
       ]);
     });
