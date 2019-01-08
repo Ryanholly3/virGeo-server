@@ -4,6 +4,10 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 
+const usersPath = require('./routes/virgeo_users')
+const objectsPath = require('./routes/objects')
+const droppedObjectsPath = require('./routes/dropped_objects')
+
 const port = process.env.PORT || 3101;
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -14,6 +18,10 @@ app.use(morgan(process.env.NODE_ENV !== 'production' ? 'dev' : 'combined'))
 app.get("/", (req, res, next) => {
   res.send("🌎 ~~~ virGeo server ~~~ 🌍")
 });
+
+app.use('/users', usersPath);
+app.use('/objects', objectsPath);
+app.use('/dropped_objects', droppedObjectsPath);
 
 app.use(notFound);
 app.use(errorHandler);

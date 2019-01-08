@@ -36,12 +36,12 @@ exports.seed = function(knex, Promise) {
         {
           id: 7,
           virgeo_user_id: 2,
-          object_id: 6
+          object_id: 5
         },
         {
           id: 8,
           virgeo_user_id: 2,
-          object_id: 6
+          object_id: 5
         },
         {
           id: 9,
@@ -62,6 +62,7 @@ exports.seed = function(knex, Promise) {
           id: 12,
           virgeo_user_id: 3,
           object_id: 3
-        }
+        },
       ]);
     });
+};

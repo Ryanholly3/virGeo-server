@@ -2,7 +2,7 @@
 exports.seed = function(knex, Promise) {
   return knex.raw('DELETE FROM "object"; ALTER SEQUENCE object_id_seq RESTART WITH 6;')
     .then(function() {
-      return knex("virgeo_user").insert([
+      return knex("object").insert([
         {
           id: 1,
           object_name: "gold",

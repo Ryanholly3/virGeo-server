@@ -4,8 +4,8 @@ const knex = require("../db/connection");
 
 router.get('/', (req, res) => {
 	knex('virgeo_user')
-    .then(virgeo_user => {
-		  res.json({ virgeo_user })
+    .then(virgeo_users => {
+		  res.json({ virgeo_users })
 		})
 })
 
