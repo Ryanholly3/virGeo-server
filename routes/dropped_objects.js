@@ -2,11 +2,37 @@ const express = require("express");
 const router = express.Router();
 const knex = require("../db/connection");
 
+function getDroppedObjects(){
+  return knex('dropped_object')
+  .select(
+		'dropped_object.id',
+		'dropped_object.latitude',
+		'dropped_object.longitude',
+	)
+}
+
+function droppedObjectInfoJoin(droppedObject){
+	return knex('object')
+		.select(
+			'object.id as object_id',
+			'object.object_name',
+		)
+		.innerJoin('dropped_object', 'object.id', 'dropped_object.object_id')
+		.whereIn('dropped_object.id', [droppedObject.id])
+}
+
 router.get('/', (req, res) => {
-	knex('dropped_object')
-    .then(dropped_objects => {
-		  res.json({ dropped_objects })
-		})
+	function getObjectInfoForDropped(){
+		return getDroppedObjects()
+			.then(function(objects){
+				return Promise.all(objects.map(async (object)=> {
+						object.object_info = await droppedObjectInfoJoin(object)
+						return object
+					})
+				)
+			}).then(objects => res.json({ objects }))
+	}
+	getObjectInfoForDropped()
 })
 
 router.get('/:id', (req, res) => {
