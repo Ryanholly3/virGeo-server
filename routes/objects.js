@@ -2,22 +2,23 @@ const express = require("express");
 const router = express.Router();
 const knex = require("../db/connection");
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
 	knex('object')
     .then(objects => {
 		  res.json({ objects })
-		})
+		}).catch(next)
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', (req, res, next) => {
   const id = req.params.id;
 	knex('object')
     .where('id', id)
     .then(object => {
       if(!object.length){
-        next()
-      } res.json({ object: object[0] })
-		})
+        return next()
+      }
+			res.json({ object: object[0] })
+		}).catch(next)
 })
 
 router.post('/', (req, res, next) => {
@@ -27,7 +28,7 @@ router.post('/', (req, res, next) => {
       .returning('*')
       .then(object => {
         res.json({ object: object[0] });
-    });
+    }).catch(next)
 });
 
 router.delete('/:id', (req, res, next) => {
@@ -38,9 +39,10 @@ router.delete('/:id', (req, res, next) => {
     	.returning('*')
     	.then(object => {
         if(!object.length){
-          next()
-        } res.json({ object: object[0] });
-    });
+          return next()
+        }
+				res.json({ object: object[0] });
+    }).catch(next)
 });
 
 module.exports = router

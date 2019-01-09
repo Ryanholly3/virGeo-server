@@ -15,8 +15,9 @@ router.get('/:id', (req, res) => {
     .where('id', id)
     .then(dropped_object => {
       if(!dropped_object.length){
-        next()
-      } res.json({ dropped_object: dropped_object[0] })
+        return next()
+      }
+			res.json({ dropped_object: dropped_object[0] })
 		})
 })
 
@@ -38,11 +39,10 @@ router.delete('/:id', (req, res, next) => {
     	.returning('*')
     	.then(dropped_object => {
         if(!dropped_object.length){
-          next()
-        } res.json({ dropped_object: dropped_object[0] });
+          return next()
+        }
+				res.json({ dropped_object: dropped_object[0] });
     });
 });
-
-
 
 module.exports = router
