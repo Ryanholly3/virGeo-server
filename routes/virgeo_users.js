@@ -15,6 +15,7 @@ function getUsers(){
 function objectUserJoin(user){
   return knex('user_object')
     .select(
+      'user_object.id as user_object_id',
       'object.id as object_id',
       'object.object_name',
     )
