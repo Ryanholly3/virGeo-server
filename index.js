@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const usersPath = require('./routes/virgeo_users')
 const objectsPath = require('./routes/objects')
 const droppedObjectsPath = require('./routes/dropped_objects')
+const userObjectsPath = require('./routes/user_objects')
 
 const port = process.env.PORT || 3101;
 
@@ -22,6 +23,8 @@ app.get("/", (req, res, next) => {
 app.use('/users', usersPath);
 app.use('/objects', objectsPath);
 app.use('/dropped_objects', droppedObjectsPath);
+app.use('/user_objects', userObjectsPath);
+
 
 app.use(notFound);
 app.use(errorHandler);
