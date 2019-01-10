@@ -41,14 +41,32 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
-	knex('virgeo_user')
-    .where('id', id)
-    .then(virgeo_user => {
-      if(!virgeo_user.length){
-        return next()
-      }
-			res.json({ virgeo_user: virgeo_user[0] })
-		}).catch(next)
+  const intCheck = parseInt(id);
+
+  function getUser(){
+		return knex('virgeo_user')
+      .select(
+        'virgeo_user.id as virgeo_user_id',
+         'virgeo_user.user_name',
+         'virgeo_user.full_name',
+         'virgeo_user.level',
+       )
+			.where('id', id)
+	}
+
+  function getUserWithObj(){
+    return getUser()
+      .then(function(users){
+        return Promise.all(users.map(async (user)=> {
+            user.objects = await objectUserJoin(user)
+            return user
+          })
+        )
+      }).then(user => {
+          res.json({ user })
+      })
+  }
+  getUserWithObj()
 })
 
 router.post('/', (req, res, next) => {
