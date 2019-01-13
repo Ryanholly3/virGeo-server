@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
         table.string('user_name', 20);
         table.string('full_name', 20)
         table.integer('level');
+        table.integer('avatar_id').references('avatar.id').unsigned().onDelete('cascade');
     });
 };
 
