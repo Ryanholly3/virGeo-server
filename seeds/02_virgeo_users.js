@@ -8,21 +8,21 @@ exports.seed = function(knex, Promise) {
           user_name: "ryanholly",
           full_name: "Ryan Holly",
           level: 10,
-          avatar: 11
+          avatar_id: 11
         },
         {
           id: 2,
           user_name: "loganpeters",
           full_name: "Logan Peters",
           level: 6,
-          avatar: 7
+          avatar_id: 7
         },
         {
           id: 3,
           user_name: "steph",
           full_name: "Stephan Holly",
           level: 3,
-          avatar: 4
+          avatar_id: 4
         },
       ]);
     });

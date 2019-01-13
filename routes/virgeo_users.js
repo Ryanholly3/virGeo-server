@@ -9,6 +9,7 @@ function getUsers(){
      'virgeo_user.user_name',
      'virgeo_user.full_name',
 		 'virgeo_user.level',
+     'virget_user.avatar_id'
    )
 }
 

@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 
+const avatarsPath = require('./routes/avatars')
 const usersPath = require('./routes/virgeo_users')
 const objectsPath = require('./routes/objects')
 const droppedObjectsPath = require('./routes/dropped_objects')
@@ -24,6 +25,8 @@ app.use('/users', usersPath);
 app.use('/objects', objectsPath);
 app.use('/dropped_objects', droppedObjectsPath);
 app.use('/user_objects', userObjectsPath);
+app.use('/avatars', avatarsPath);
+
 
 
 app.use(notFound);
