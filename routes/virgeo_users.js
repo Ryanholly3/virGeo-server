@@ -13,6 +13,15 @@ function getUsers(){
    )
 }
 
+function avatarUserJoin(user){
+  return knex('avatar')
+    .select(
+      'avatar.avatar_name'
+    )
+    .innerJoin('virgeo_user', 'avatar.id', 'virgeo_user.avatar_id')
+    .whereIn('avatar.id', [user.avatar_id])
+}
+
 function objectUserJoin(user){
   return knex('user_object')
     .select(
@@ -29,6 +38,7 @@ router.get('/', (req, res, next) => {
 		return getUsers()
 			.then(function(users){
 				return Promise.all(users.map(async (user)=> {
+            user.avatar_info = await avatarUserJoin(user)
 						user.objects = await objectUserJoin(user)
 						return user
 					})
@@ -51,6 +61,7 @@ router.get('/:id', (req, res, next) => {
          'virgeo_user.user_name',
          'virgeo_user.full_name',
          'virgeo_user.level',
+         'virgeo_user.avatar_id'
        )
 			.where('id', id)
 	}
@@ -59,6 +70,7 @@ router.get('/:id', (req, res, next) => {
     return getUser()
       .then(function(users){
         return Promise.all(users.map(async (user)=> {
+            user.avatar_info = await avatarUserJoin(user)
             user.objects = await objectUserJoin(user)
             return user
           })
