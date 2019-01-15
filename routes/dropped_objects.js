@@ -16,6 +16,7 @@ function droppedObjectInfoJoin(droppedObject){
 		.select(
 			'object.id as object_id',
 			'object.object_name',
+      'object.category'
 		)
 		.innerJoin('dropped_object', 'object.id', 'dropped_object.object_id')
 		.whereIn('dropped_object.id', [droppedObject.id])
