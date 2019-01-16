@@ -28,6 +28,7 @@ function objectUserJoin(user){
       'user_object.id as user_object_id',
       'object.id as object_id',
       'object.object_name',
+      'object.category'
     )
     .innerJoin('object', 'object.id', 'user_object.object_id')
     .whereIn('user_object.virgeo_user_id', [user.virgeo_user_id])
